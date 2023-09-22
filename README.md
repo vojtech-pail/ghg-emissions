@@ -14,8 +14,8 @@ Now the fun part begins (with a little made up story).
 Before making any changes like prohibiting international trade, we first want to see the composition of emissions related to different sectors in order to understand the significance of the food production. There is also suspicion that countries do not report their emissions correctly in order to look better compared to other countries. But luckily there is one organisation that have more precise numbers of emitted greenhouse gases so our goal is also to see how off the countries' reports are.
 
 The goals are:
-1. Visualize the proportion of emissions related to agriculture against other sectors.
-2. 2. Compare the data from two different sources.
+1. **Visualize the proportion of emissions related to agriculture against other sectors.**
+2. **Compare the data from two different sources.**
 
 ## Exploring available data
 What can be extracted. Are there some areas that can be compared?
