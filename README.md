@@ -1,31 +1,35 @@
 # Greenhouse gas emissions data comparison
-This is an analytical project which aims to provide comparison of two different sources of data about greenhouse gas emissions. 
+This is an end-to-end data engineering and data analytical project which aims to provide comparison of two different data sources about greenhouse gas emissions and visualize the greenhouse gas contributions of different sectors and agrifood systems in particular.
 
-## Problem definition
+*DISCLAIMER: In order to focus on the data engineering and analytical tasks, I disregard some technical details about the datasets and make some intentional assumptions about them that might not be correct. Please use the results with caution.*
+
+## 1 The context
 Even though this is just a test project let's build some real foundations for its justification.
 
 The scientists have already discovered in several studies that if the trend of global warming continues, there will be pretty bad consequences for human kind. Since we haven't invented any tools or mechanisms to cool down the planet, the only possible action we can take is to lower the amount of emitted greenhouse gases that contribute towards the warming of the planet.
 
-One of the areas that might be ideal for optimisation is the food consumption. Usually it's almost no problem to get the products we want in a certain moment even though they were produced on the other side of the planet. The food availability causes some unnecessary greenhouse gases emission that are either related to the transportation of the goods or by over-production.
+One of the areas that might be ideal for optimisation is the food consumption. Usually it's almost no problem to get the products we want at a certain moment even though they were produced on the other side of the planet. The food availability causes some unnecessary greenhouse gases emission that are either related to the transportation of the goods or by over-production.
 
-## The project goal
-Now the fun part begins (with a little made up story).
+## 2 The project goal
+Now the fun part begins. As mentioned in the disclaimer, there are some assumptions about the datasets and due to simplification some information in this section is made up.
 
 Before making any changes like prohibiting international trade, we first want to see the composition of emissions related to different sectors in order to understand the significance of the food production. There is also suspicion that countries do not report their emissions correctly in order to look better compared to other countries. But luckily there is one organisation that have more precise numbers of emitted greenhouse gases so our goal is also to see how off the countries' reports are.
 
-The goals are:
-1. **Visualize the proportion of emissions related to agriculture against other sectors.**
-2. **Compare the data from two different sources.**
+The goals:
+1. Visualize the proportion of emissions related to agriculture against other sectors.
+2. Compare the data from two different sources and provide some key metrics about the differences.
 
-## Exploring available data
-What can be extracted. Are there some areas that can be compared?
-Testing the availability on datapoints for Canada. Add the Google Sheets report.
+## 3 Exploring the data
+First I had to understand what is the structure of the data and how the comparison of the two different datasets would look like.
 
-
-### FAO portal
+The data about emissions related to agriculture and food systems are maintained by the Food and Agriculture Organization of the United Nations and can be downloaded from their [website](https://www.fao.org/faostat/en/#data/GT) (further abbreviated as FAO). The FAO dataset contains not only agrifood systems data but the emissions data of all the IPCC sectors as well
 
 
-## Ingesting data
+### FAO data
+
+### Climate Watch data
+
+## 4 Ingesting data
 
 ### FAO data
 Manula download + cloud storage triggering google function that transforms the data and uploads them to the Google BigQuery dataset.
@@ -33,7 +37,7 @@ Manula download + cloud storage triggering google function that transforms the d
 ### Climate Watch data
 Google Cloud Function with parameters that are used in API calls to Climate Watch portal (`start_year`, `end_year`, `regions`). The function transforms the data and uploads them to the Google BigQuery dataset.
 
-## Creating models
+## 5 Creating models
 Using dbt cloud.
 
 ### Data quality models
@@ -44,4 +48,4 @@ Result - tests don't pass.
 ### Core models
 Models that aim to compare the FAO data and Climate Watch data.
 
-## Visualizing the findings
+## 6 Visualizing the findings
