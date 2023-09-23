@@ -19,7 +19,7 @@ The goals:
 1. Visualize the proportion of emissions related to agriculture against other sectors.
 2. Compare the data from two different sources and provide some key metrics about the differences.
 
-*There are several gases that are generally considered as "greenhouse", each with different magnitude of contribution towards global warming. The common method to normalize the numbers is to multiply the values with a constant that is related to a specific gas, resulting in an equivalent of emitted CO2. The multiplication factors that are used in both datasets were taken from the Fifth Assessment report by Intergovernmental Panel on Climate Change (further abbreviated as IPCC).*
+*There are several gases that are generally considered as "greenhouse", each with different magnitude of contribution towards global warming. The common method to normalize the numbers is to multiply the values with a constant that is related to that specific gas, resulting in an equivalent of emitted CO2. The multiplication factors that are used in both datasets were taken from the Fifth Assessment report by Intergovernmental Panel on Climate Change (further abbreviated as IPCC).*
 
 ## 3 Exploring the data
 First I had to understand what is the structure of the data and how the comparison of the two different datasets would look like.
@@ -30,7 +30,7 @@ The second organisation that gathers data about greenhouse gas emissions is Clim
 
 In order to get a better understanding of the data and how both datasets fit together, I downloaded sample data for Canada's 2020 emissions from both portals and put them together in a [Google Sheets file](https://docs.google.com/spreadsheets/d/1ZcKa8KzINZwqKoVcgZBC2XNQTrSQdNLt5Au4ie9xVlA/edit#gid=0). The results of my findings are in the following two subsections.
 
-In both cases, I was interested only in downloading data for C
+In both cases, I was interested only in downloading data for CO2 equivalents of emitted gases.
 
 ### 3.1 FAO data
 The data downloaded 
