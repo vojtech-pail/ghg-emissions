@@ -30,7 +30,7 @@ The second organisation that gathers data about greenhouse gas emissions is Clim
 
 In order to get a better understanding of the data and how both datasets fit together, I downloaded sample data for Canada's 2020 emissions from both portals and put them together in a [Google Sheets file](https://docs.google.com/spreadsheets/d/1ZcKa8KzINZwqKoVcgZBC2XNQTrSQdNLt5Au4ie9xVlA/edit#gid=0). The results of my findings are in the following two subsections.
 
-In both cases, I was interested only in downloading data for CO2 equivalents of emitted gases.
+In both cases, I was interested only in downloading data for CO<sub>2</sub> equivalents of emitted gases.
 
 ### 3.1 FAO data
 The data in raw format was not very user friendly. There was no indication about what are the aggregated numbers and what are individual categories. Following along with a table that is attached to the [methodological note of FAOSTAT's Emissions Totals Domain](https://fenixservices.fao.org/faostat/static/documents/GT/GT_e.pdf) I was able to map individual lower level categories to higher level IPCC categories. I have therefore introduced the grading system and assigned appropriate level to each item in a dimension table I have made from selecting distinct values of *Item* and *Item Code*.
@@ -41,7 +41,7 @@ The data in raw format was not very user friendly. There was no indication about
 
 **Some of the key findings:**
 * Some categories might be missing (there was no entry for *Rice Cultivation* emissions - probably because of Canada's lack of rice fields).
-* Emissions for *Food Retail* category was present only in aggregated form (all gases together) but according to the mapping table, some elements were part of the Energy IPCC sector (CO<sbu>2</sub>, CH<sbu>4</sub>, N<sbu>2</sub>O) and some were part of Industrial Processes IPCC sector (F-gases). Therefore additional download of the *Food Retail* category with all the elements was necessary. Additional modifications were to be made in the following ETL process.
+* Emissions for *Food Retail* category was present only in aggregated form (all gases together) but according to the mapping table, some elements were part of the Energy IPCC sector (CO<sub>2</sub>, CH<sub>4</sub>, N<sub>2</sub>O) and some were part of Industrial Processes IPCC sector (F-gases). Therefore additional download of the *Food Retail* category with all the elements was necessary. Additional modifications were to be made in the following ETL process.
 * Level 2 items summed up only for Agriculture and LULUCF IPCC categories. In order to allow the drill-down feature while still displaying the totals, I had to add three new items (Energy not related to Agriculture, IPPU not related to Agriculture, Waste not related to Agriculture) that were to be calculated in the following ETL process.
 
 ### 3.2 Climate Watch data
@@ -50,7 +50,7 @@ The Climate Watch data contained only the values for similar categories as IPCC 
 ## 4 Ingesting data
 
 ### 4.1 FAO data
-Unfortunately, there is no API to access the data automatically and therefore it is necessary to download the data manually.
+Unfortunately, there is no API to access the data automatically and therefore it is necessary to download the data manually. But the rest of the ETL process was automated. I have created a Google Cloud Function that is triggered by file uploaded to a specific Google Cloud Storage bucket.
 
 Manula download + cloud storage triggering google function that transforms the data and uploads them to the Google BigQuery dataset.
 
