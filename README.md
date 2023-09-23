@@ -56,9 +56,7 @@ Unfortunately, there is no API to access the data automatically and therefore it
 | --- |
 | *Eventarc trigger for FAO data ETL function* |
 
-
-
-Manula download + cloud storage triggering google function that transforms the data and uploads them to the Google BigQuery dataset.
+*Key sections of the ETL script here*
 
 ### Climate Watch data
 Google Cloud Function with parameters that are used in API calls to Climate Watch portal (`start_year`, `end_year`, `regions`). The function transforms the data and uploads them to the Google BigQuery dataset.
