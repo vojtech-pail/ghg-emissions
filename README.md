@@ -48,13 +48,14 @@ The data in raw format was not very user friendly. There was no indication about
 The Climate Watch data contained only the values for similar categories as IPCC categories in FAO dataset and more detailed values for Energy sector. Therefore it was ready to be used without any additional changes.
 
 ## 4 Ingesting data
+ETL Python scripts for ingesting both FAO and Climate Watch datasets were deployed as Google Functions.
+
+| ![Overview of the Google Functions for ETL process](/assets/google_functions.png "Overview of the Google Functions for ETL process") |
+| --- |
+| *Overview of the Google Functions for ETL process* |
 
 ### 4.1 FAO data
 Unfortunately, there is no API to access the data automatically and therefore it is necessary to download the data manually. But the rest of the ETL process was automated. I have created a Google Cloud Function that is triggered by file uploaded to a specific Google Cloud Storage bucket.
-
-| ![Eventarc trigger for FAO data ETL function](/assets/fao_data_load_function_trigger.png "Eventarc trigger for FAO data ETL function") |
-| --- |
-| *Eventarc trigger for FAO data ETL function* |
 
 *Key sections of the ETL script here*
 
