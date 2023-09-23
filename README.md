@@ -49,7 +49,9 @@ The Climate Watch data contained only the values for similar categories as IPCC 
 
 ## 4 Ingesting data
 
-### FAO data
+### 4.1 FAO data
+Unfortunately, there is no API to access the data automatically and therefore it is necessary to download the data manually.
+
 Manula download + cloud storage triggering google function that transforms the data and uploads them to the Google BigQuery dataset.
 
 ### Climate Watch data
