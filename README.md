@@ -36,8 +36,14 @@ In both cases, I was interested only in downloading data for CO2 equivalents of 
 The data in raw format was not very user friendly. There was no indication about what are the aggregated numbers and what are individual categories. Following a table that is attached to the [methodological note of FAOSTAT's Domain Emissions Totals](https://fenixservices.fao.org/faostat/static/documents/GT/GT_e.pdf) I was able to map individual lower level categories to higher level IPCC categories. I have therefore introduced the leveling system and assigned appropriate level to each item in a dimension table I have made from selecting distinct values of *Item* and *Item Code*.
 
 ![Mapping of FAO categories to IPCC sectors!](/assets/fao_categories_mapping_to_ipcc.png "Mapping of FAO categories to IPCC sectors")
+
 *Mapping of FAO categories to IPCC sectors (source - FAOSTAT)*
 
+<figure>
+    <img src="/assets/fao_categories_mapping_to_ipcc.png"
+         alt="FAO categories mapped to IPCC sectors">
+    <figcaption>FAO categories mapped to IPCC sectors (source - FAOSTAT)</figcaption>
+</figure>
 
 
 ### 3.2 Climate Watch data
