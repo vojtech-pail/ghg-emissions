@@ -52,7 +52,7 @@ The Climate Watch data contained only the values for similar categories as IPCC 
 ### 4.1 FAO data
 Unfortunately, there is no API to access the data automatically and therefore it is necessary to download the data manually. But the rest of the ETL process was automated. I have created a Google Cloud Function that is triggered by file uploaded to a specific Google Cloud Storage bucket.
 
-| ![Eventarc trigger for FAO data ETL function](/assets/fao_data_load_function_trigger.png "Eventarc trigger for FAO data ETL function") |
+| ![Eventarc trigger for FAO data ETL function](/assets/fao_data_load_function_trigger.png"Eventarc trigger for FAO data ETL function") |
 | --- |
 | *Eventarc trigger for FAO data ETL function* |
 
