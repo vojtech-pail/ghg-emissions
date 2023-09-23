@@ -16,10 +16,10 @@ Now the fun part begins. As mentioned in the disclaimer, there are some assumpti
 Before making any changes like prohibiting international trade, we first want to see the composition of emissions related to different sectors in order to understand the significance of the food production. There is also suspicion that countries do not report their emissions correctly in order to look better compared to other countries. But luckily there is one organisation that have more precise numbers of emitted greenhouse gases so our goal is also to see how off the countries' reports are.
 
 The goals:
-1. Visualize the proportion of emissions related to agriculture against other sectors.
+1. Visualize the proportion of CO<sub>2</sub> equivalent* emissions related to agriculture against other sectors.
 2. Compare the data from two different sources and provide some key metrics about the differences.
 
-*There are several gases that are generally considered as "greenhouse", each with different magnitude of contribution towards global warming. The common method to normalize the numbers is to multiply the values with a constant that is related to that specific gas, resulting in an equivalent of emitted CO2. The multiplication factors that are used in both datasets were taken from the Fifth Assessment report by Intergovernmental Panel on Climate Change (further abbreviated as IPCC).*
+**There are several gases that are generally considered as "greenhouse", each with different magnitude of contribution towards global warming. The common method to normalize the numbers is to multiply the values with a constant that is related to that specific gas, resulting in an equivalent of emitted CO2. The multiplication factors that are used in both datasets were taken from the Fifth Assessment report by Intergovernmental Panel on Climate Change (further abbreviated as IPCC).*
 
 ## 3 Exploring the data
 First I had to understand what is the structure of the data and how the comparison of the two different datasets would look like.
@@ -34,6 +34,8 @@ In both cases, I was interested only in downloading data for CO2 equivalents of 
 
 ### 3.1 FAO data
 The data downloaded 
+![Mapping of FAO categories to IPCC sectors!](/assets/fao_categories_mapping_to_ipcc.png "Mapping of FAO categories to IPCC sectors")
+*Mapping of FAO categories to IPCC sectors ()*
 
 ### 3.2 Climate Watch data
 
