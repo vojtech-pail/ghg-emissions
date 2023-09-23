@@ -35,7 +35,7 @@ In both cases, I was interested only in downloading data for CO<sub>2</sub> equi
 ### 3.1 FAO data
 The data in raw format was not very user friendly. There was no indication about what are the aggregated numbers and what are individual categories. Following along with a table that is attached to the [methodological note of FAOSTAT's Emissions Totals Domain](https://fenixservices.fao.org/faostat/static/documents/GT/GT_e.pdf) I was able to map individual lower level categories to higher level IPCC categories. I have therefore introduced the grading system and assigned appropriate level to each item in a dimension table I have made from selecting distinct values of *Item* and *Item Code*.
 
-| ![Mapping of FAO categories to IPCC sectors!](/assets/fao_categories_mapping_to_ipcc.png "Mapping of FAO categories to IPCC sectors") |
+| ![Mapping of FAO categories to IPCC sectors](/assets/fao_categories_mapping_to_ipcc.png "Mapping of FAO categories to IPCC sectors") |
 | --- |
 | *Mapping of FAO categories to IPCC sectors (source - FAOSTAT)* |
 
@@ -51,6 +51,12 @@ The Climate Watch data contained only the values for similar categories as IPCC 
 
 ### 4.1 FAO data
 Unfortunately, there is no API to access the data automatically and therefore it is necessary to download the data manually. But the rest of the ETL process was automated. I have created a Google Cloud Function that is triggered by file uploaded to a specific Google Cloud Storage bucket.
+
+| ![Eventarc trigger for FAO data ETL function](/assets/fao_data_load_function_trigger.png "Eventarc trigger for FAO data ETL function") |
+| --- |
+| *Eventarc trigger for FAO data ETL function* |
+
+
 
 Manula download + cloud storage triggering google function that transforms the data and uploads them to the Google BigQuery dataset.
 
