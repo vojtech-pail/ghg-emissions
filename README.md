@@ -19,7 +19,7 @@ The goals:
 1. Visualize the proportion of CO<sub>2</sub> equivalent* emissions related to agriculture against other sectors.
 2. Compare the data from two different sources and provide some key metrics about the differences.
 
-**There are several gases that are generally considered as "greenhouse", each with different magnitude of contribution towards global warming. The common method to normalize the numbers is to multiply the values with a constant that is related to that specific gas, resulting in an equivalent of emitted CO2. The multiplication factors that are used in both datasets were taken from the Fifth Assessment report by Intergovernmental Panel on Climate Change (further abbreviated as IPCC).*
+**There are several gases that are generally considered as "greenhouse", each with different magnitude of contribution towards global warming. The common method to normalize the numbers is to multiply the values with a constant that is related to that specific gas, resulting in an equivalent of emitted CO<sub>2</sub>. The multiplication factors that are used in both datasets were taken from the Fifth Assessment report by Intergovernmental Panel on Climate Change (further abbreviated as IPCC).*
 
 ## 3 Exploring the data
 First I had to understand what is the structure of the data and how the comparison of the two different datasets would look like.
@@ -33,9 +33,12 @@ In order to get a better understanding of the data and how both datasets fit tog
 In both cases, I was interested only in downloading data for CO2 equivalents of emitted gases.
 
 ### 3.1 FAO data
-The data downloaded 
+The data in raw format was not very user friendly. There was no indication about what are the aggregated numbers and what are individual categories. Following a table that is attached to the [methodological note of FAOSTAT's Domain Emissions Totals](https://fenixservices.fao.org/faostat/static/documents/GT/GT_e.pdf) I was able to map individual lower level categories to higher level IPCC categories. I have therefore introduced the leveling system and assigned appropriate level to each item in a dimension table I have made from selecting distinct values of *Item* and *Item Code*.
+
 ![Mapping of FAO categories to IPCC sectors!](/assets/fao_categories_mapping_to_ipcc.png "Mapping of FAO categories to IPCC sectors")
-*Mapping of FAO categories to IPCC sectors ()*
+*Mapping of FAO categories to IPCC sectors (source - FAOSTAT)*
+
+
 
 ### 3.2 Climate Watch data
 
