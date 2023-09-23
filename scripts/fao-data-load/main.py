@@ -1,4 +1,19 @@
+import functions_framework
+import traceback
+import pandas as pd
+import pandas_gbq
 
+from google.cloud import bigquery
+from google.cloud import storage
+from google.cloud.exceptions import NotFound
+
+
+PROJECT_ID = "my-project-1470391734037"
+DATASET = "ghg"
+TABLE_STG = "fao_data_stg"
+TABLE_TARGET = "fao_data"
+
+table_id_stg = f"{PROJECT_ID}.{DATASET}.{TABLE_STG}"
 table_id_target = f"{PROJECT_ID}.{DATASET}.{TABLE_TARGET}"
 
 gcs_client = storage.Client()
