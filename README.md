@@ -48,7 +48,7 @@ The data in raw format was not very user friendly. There was no indication about
 The Climate Watch data contained only the values for similar categories as IPCC categories in FAO dataset and more detailed values for Energy sector. Therefore it was ready to be used without any additional changes.
 
 ## 4 Ingesting data
-ETL Python scripts for ingesting both FAO and Climate Watch datasets were deployed as Google Functions.
+ETL Python scripts for ingesting both FAO and Climate Watch datasets were deployed as Google Functions. I had some issues with running the scripts with the basic 256 MiB memory allocation so I had to increase the allocation to 512 MiB (probably becasue of the `pandas` library). 
 
 | ![Overview of the Google Functions for ETL process](/assets/google_functions.png "Overview of the Google Functions for ETL process") |
 | --- |
