@@ -42,7 +42,7 @@ The data in raw format was not very user friendly. There was no indication about
 **Some of the key findings:**
 1. Some categories might be missing (there was no entry for *Rice Cultivation* emissions - probably because of Canada's lack of rice fields).
 2. Emissions for *Food Retail* category was present only in aggregated form (all gases together) but according to the mapping table, some elements were part of the Energy IPCC sector (CO<sub>2</sub>, CH<sub>4</sub>, N<sub>2</sub>O) and some were part of Industrial Processes IPCC sector (F-gases). Therefore additional download of the *Food Retail* category with all the elements was necessary. Additional modifications were to be made in the following ETL process.
-3. Level 2 items summed up only for Agriculture and LULUCF IPCC categories. In order to allow the drill-down feature while still displaying the totals, I had to add three new items (*Energy not related to Agriculture*, *IPPU not related to Agriculture*, *Waste not related to Agriculture*) that were to be calculated in the following ETL process.
+3. Level 2 items summed up only for Agriculture and LULUCF IPCC categories. In order to allow the drill-down feature while still displaying the totals, I had to add three new items (*Energy emissions not related to Agriculture*, *IPPU emissions not related to Agriculture*, *Waste emissions not related to Agriculture*) that were to be calculated in the following ETL process.
 
 ### 3.2 Climate Watch data
 The Climate Watch data contained only the values for similar categories as IPCC categories in FAO dataset and more detailed values for Energy sector. Therefore it was ready to be used without any additional changes.
@@ -77,8 +77,7 @@ First set of models were designed to test the quality of the data and some asump
 **FAO data completeness (IPCC) [fao_ipcc_test_1.sql]**
 * The purpose of this model was to test the asumption made in the initial data exploring phase described in the finding number 3 of the section 3.1, that level 2 items (columns `J:K` of the mapping Sheets file) add up to level 1 items for *LULUCF* and *Agriculture* IPCC  categories (columns `H:I` of the mapping Sheets file).
 * There were discrepancies in *LULUCF* category for Nepal and Guinea entries.
-* => I had to go back and add new level 2 item *LULUCF not related to agriculture* to the dimension table and edit the ETL script so it calculated along with the other custom items.
-* => Even though the result from this test was OK for *Agriculture*, I decided to add *Agriculture not related to agriculture*. Yes, it sounds very weird and it logically doesn't make any sense that there would be some emissions for agriculture, that were not captured by FAOSTAT as part of agrifood systems emissions. So this item should be 0 every time, but it can be measured and tested later if this asumption is valid.
+* => I had to go back and add new level 2 item *LULUCF emissions not related to agriculture* to the dimension table and edit the ETL script so it is calculated with the other custom items.
 
 
 ### Core models
