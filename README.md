@@ -74,24 +74,32 @@ First set of models were designed to test the quality of the data and some asump
 
 Data from the FAO dataset are possible to view from two different angles. First one is the IPCC point of view, where sum of the detailed level 2 items (columns `J:K` of the mapping Sheets file) should match the related level 1 items. Second one is the FAO point of view, which has different level 1 categories (columns `N:O` of the mapping Sheets file) that are composed of only some of the level 2 items.
 
-Climate Watch dataset has entries that can be linked only to the FAO's IPCC categories, therefore the data quality models covers only one dimension.
+Climate Watch dataset has entries that can be linked only to the FAO's IPCC categories (columns `D:E` of the mapping Sheets file), therefore the data quality models covers only one dimension.
 
 *Summarizing findings in one master model.*
 
-**FAO data completeness (IPCC dimension) [fao_ipcc_test_1.sql]**
+**FAO data completeness L2 -> L1 (IPCC dimension) [fao_ipcc_test_1.sql]**
 * The purpose of this model is to test the asumption made in the initial data exploring phase described in the finding number 3 of the section 3.1, that level 2 items (columns `J:K` of the mapping Sheets file) add up to level 1 items for *LULUCF* and *Agriculture* IPCC  categories (columns `H:I` of the mapping Sheets file).
 * There were discrepancies in *LULUCF* category for Nepal and Guinea entries.
 * => I had to go back and add new level 2 item *LULUCF emissions not related to agriculture* to the dimension table and edit the ETL script so it is calculated with the other custom items.
 
-**FAO data completeness (IPCC dimension) [fao_ipcc_test_1_2.sql]**
+**FAO data completeness L2 -> L1 (IPCC dimension) [fao_ipcc_test_1_2.sql]**
 * This is a revised version of the *fao_ipcc_test_1* model, which includes comparison of level 2 and level 1 items only for agriculture IPCC sector.
 
-**FAO data completeness (IPCC dimension) [fao_ipcc_test_2.sql]**
+**FAO data completeness L1 -> L0 (IPCC dimension) [fao_ipcc_test_2.sql]**
 * The second IPCC data completeness model verifies that the sum of level 1 items (columns `H:I` of the mapping Sheets file) are equal to the level 0 items (total amount of emissions per year and country). 
 
-**FAO data completeness (FAO dimension) [fao_fao_test_1.sql]**
+**FAO data completeness L2 -> L1 (FAO dimension) [fao_fao_test_1.sql]**
 * This model evaluates whether level 2 items (columns `J:K` of the mapping Sheets file) from the FAO dataset are equal to the related level 1 items (columns `N:O` of the mapping Sheets file) of the FAO dimension.
 
+**FAO data completeness L1 -> L0 (FAO dimension) [fao_fao_test_2.sql]**
+* Thic model compares the summarized values of level 1 items (columns `N:O` of the mapping Sheets file) and values of related level 0 items (columns `P:Q` of the mapping Sheets file).
+
+**Climate Watch data completeness L2 -> L1 (IPCC dimension) [cw_ipcc_test_1.sql]**
+* The first Climate Watch data quality model verifies that the sum of level 2 items of Energy IPCC sector (columns `B:C` of the mapping Sheets file) add up to level 1 total for Energy sector per country and year.  
+
+**Climate Watch data completeness L1 -> L0 (IPCC dimension) [cw_ipcc_test_2.sql]**
+* Similarly as with the *fao_ipcc_test_2* model, this one compares the sum of level 1 items' values with the level 0 totals emissions for country and year. 
 
 ### Core models
 Models that aim to compare the FAO data and Climate Watch data.
