@@ -3,6 +3,12 @@ This is an end-to-end data engineering and data analytical project which aims to
 
 *DISCLAIMER: In order to focus on the data engineering and analytical tasks, I disregard some technical details about the datasets and make some intentional assumptions about them that might not be correct. Please use the results with caution.*
 
+## Lessons learned
+The process described in the following text is not complete set of actions I had to perform in order to get to the finish line.
+
+There were some decision points that led me to a dead end:
+* I wanted to avoid using `pandas` library in the script for uploading Climate Watch data, since it was unnecessary for this task. The data from Climate Watch API are returned as nested JSON, that wouldn't be a problem because BigQuery supports STRUCT objects (which is basically an arbitrary structure of data). Problem is that Python dictionary objects are possible to upload only in streaming mode, making the data unavailable for some operations because they are being kept in a buffer for some time. Since I wanted to allow to keep existing data in the target tables and add (or replace) the new data, I needed the tables to be ready for the MERGE operation immediately after the data were added to a staging table (which wasn't the case with streaming mode). Therefore I had to switch to `pandas` library, because `DataFrame` objects can be uploaded in a batch mode directly to a target table without idling in a buffer.
+
 ## 1 The context
 Even though this is just a test project let's build some real foundations for its justification.
 
