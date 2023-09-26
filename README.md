@@ -39,7 +39,7 @@ The data in raw format was not very user friendly. There was no indication about
 | --- |
 | *Mapping of FAO categories to IPCC sectors (source - FAOSTAT)* |
 
-**Some of the key findings:**
+**Key findings:**
 1. Some categories might be missing (there was no entry for *Rice Cultivation* emissions - probably because of Canada's lack of rice fields).
 2. Emissions for *Food Retail* category was present only in aggregated form (all gases together) but according to the mapping table, some elements were part of the Energy IPCC sector (CO<sub>2</sub>, CH<sub>4</sub>, N<sub>2</sub>O) and some were part of Industrial Processes IPCC sector (F-gases). Therefore additional download of the *Food Retail* category with all the elements was necessary. Additional modifications were to be made in the following ETL process.
 3. Level 2 items summed up only for Agriculture and LULUCF IPCC categories. In order to allow the drill-down feature while still displaying the totals, I had to add three new items (*Energy emissions not related to Agriculture*, *IPPU emissions not related to Agriculture*, *Waste emissions not related to Agriculture*) that were to be calculated in the following ETL process.
@@ -103,5 +103,7 @@ Climate Watch dataset has entries that can be linked only to the FAO's IPCC cate
 
 ### Core models
 Models that aim to compare the FAO data and Climate Watch data.
+
+****
 
 ## 6 Visualizing the findings
