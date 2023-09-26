@@ -76,7 +76,7 @@ There are references to the [mapping Google Sheets file](https://docs.google.com
 In order to save the compute resources, the initial testing of the models was done on a small amount of data. The testing dataset consisted of three countries - Canada (`CAN`), Nepal (`NPL`) and Guinea (`GIN`). The period covered was 2016 to 2020.
 
 ### Data quality models
-First set of models were designed to test the quality of the data and some asumptions made in earlier part of the project.
+First set of models were designed to test the quality of the data and some asumptions made in earlier part of the project. The idea behind testing the data quality is to verify, that the values of higher granularity items (I call these *level 2* items in this project) match the items of lower granularity and that the dataset is complete and both levels can be used interchangebly (i.e. some calculations can be based on level 1 items while others on level 2 items). Discovery of any methodological or process errors made by any of the data collectors (FAOSTAT and Climate Watch) is NOT the purpose of this testing. Therefore if some higher granularity items were not included in calculating the lower granularity items by accident, it won't be discovered.
 
 Data from the FAO dataset are possible to view from two different angles. First one is the IPCC point of view, where sum of the detailed level 2 items (columns `J:K` of the mapping Sheets file) should match the related level 1 items. Second one is the FAO point of view, which has different level 1 categories (columns `N:O` of the mapping Sheets file) that are composed of only some of the level 2 items.
 
