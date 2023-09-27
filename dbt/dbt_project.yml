@@ -33,7 +33,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 models:
   ghg_emissions:
-    +materialized: view
+    +materialized: table
 
     data_quality:
       +schema: data_quality

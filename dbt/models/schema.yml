@@ -2,7 +2,7 @@
 version: 2
 
 models:
-    - name: dataset_comparison
+    - name: datasets_comparison
       description: "The core analytical model with datasets comparison metrics for country and year combinations."
       columns:
         - name: country_code
@@ -33,7 +33,7 @@ models:
           description: "YOY difference of fao_value."
 
     - name: datasets_comparison_overview
-      description: "The core analytical model with datasets comparison metrics aggregated by country. This model is based on the dataset_comparison model."
+      description: "The core analytical model with datasets comparison metrics aggregated by country. This model is based on the datasets_comparison model."
       columns:
         - name: country_code
           description: "The ISO Alpha 3 code."
