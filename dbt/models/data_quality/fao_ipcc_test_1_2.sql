@@ -27,11 +27,9 @@ with items_summarized as (
 )
 
 select
-    -- t.area_code as country_code,
-    c.Country_or_Area as country_name,
+    c.ISO_alpha3_Code as country_code,
     t.year,
-    --i.ipcc_category_code,
-    g.ipcc_category,
+    i.ipcc_category_code,
     t.value as total_value,
     s.level_2_items_sum,
     round(t.value - s.level_2_items_sum, 2) as values_difference,

@@ -1,8 +1,7 @@
 select
     d.iso_code3,
-    d.sector,
-    i.ipcc_category_code,
     d.year,
+    i.ipcc_category_code,
     d.value
 
 from

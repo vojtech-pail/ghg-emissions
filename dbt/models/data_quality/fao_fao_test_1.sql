@@ -29,7 +29,7 @@ with level_2_summarized as (
 )
 
 select
-    t.area_code,
+    c.ISO_alpha3_Code as country_code,
     t.year,
     i.fao_category_code,
     t.value as total_value,
@@ -43,6 +43,10 @@ from
 join
     {{ source('ghg', 'fao_items') }} i
  on t.item_code = i.item_code
+
+join
+    {{ source('ghg', 'countries') }} c
+ on t.area_code = c.M49_Code
 
 join
     level_2_summarized s
