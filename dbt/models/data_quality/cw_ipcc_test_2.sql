@@ -14,7 +14,7 @@ with items_summarized as (
 )
 
 select
-    t.iso_code3,
+    t.iso_code3 as country_code,
     t.year,
     t.value as total_value,
     s.level_1_emissions as summarized_value,

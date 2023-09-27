@@ -27,7 +27,7 @@ with level_1_summarized as (
 )
 
 select
-    t.area_code,
+    c.ISO_alpha3_Code as country_code,
     t.year,
     t.value as total_value,
     s.level_1_emissions as summarized_value,
@@ -36,6 +36,10 @@ select
 
 from
     {{ source('ghg', 'fao_data') }} t
+
+join
+    {{ source('ghg', 'countries') }} c
+ on t.area_code = c.M49_Code
 
 join
     level_1_summarized s

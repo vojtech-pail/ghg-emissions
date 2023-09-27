@@ -24,7 +24,7 @@ with items_summarized as (
 )
 
 select
-    t.iso_code3,
+    t.iso_code3 as country_code,
     t.year,
     i.ipcc_category_code,
     t.value as total_value,

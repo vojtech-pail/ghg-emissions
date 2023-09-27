@@ -1,7 +1,26 @@
-with categories_union as (
+with other_category as (
 
     select
-        area_code,
+        c.ISO_alpha3_Code,
+        d.year,
+        d.value
+    
+    from
+        {{ source('ghg', 'fao_data') }} d
+    
+    join
+        {{ source('ghg', 'countries') }} c
+     on d.area_code = c.M49_Code
+
+    where
+        item_code = 6819 -- Other category
+
+),
+
+categories_union as (
+
+    select
+        ISO_alpha3_Code,
         year,
         value
 
@@ -11,22 +30,17 @@ with categories_union as (
     union all
 
     select
-        area_code,
-        year,
-        value
+        *
     
     from
-        {{ source('ghg', 'fao_data') }}
-
-    where
-        item_code = 6819 -- Other category
+        other_category
 
 ),
 
 items_summarized as (
 
     select
-        area_code,
+        ISO_alpha3_Code,
         year,
         sum(value) as level_1_items_sum
     
@@ -34,12 +48,12 @@ items_summarized as (
         categories_union
     
     group by
-        area_code,
+        ISO_alpha3_Code,
         year
 )
 
 select
-    t.area_code,
+    c.ISO_alpha3_Code as country_code,
     t.year,
     t.value as total_value,
     s.level_1_items_sum as summarized_value,
@@ -50,8 +64,12 @@ from
     {{ source('ghg', 'fao_data') }} as t
 
 join
+    {{ source('ghg', 'countries') }} c
+ on t.area_code = c.M49_Code
+
+join
     items_summarized as s
- on t.area_code = s.area_code
+ on c.ISO_alpha3_Code = s.ISO_alpha3_Code
 and t.year = s.year
 
 where

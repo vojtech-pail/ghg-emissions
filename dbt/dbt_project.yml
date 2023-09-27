@@ -37,6 +37,7 @@ models:
 
     data_quality:
       +schema: data_quality
+      +materialized: view
 
     stg:
       +schema: stg
