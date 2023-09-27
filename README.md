@@ -84,6 +84,8 @@ Climate Watch dataset has entries that can be linked only to the FAO's IPCC cate
 
 *Summarizing findings in one master model.*
 
+*SQL tehniques used: CTEs, window functions (for calculating running total, moving average, delta values - YOY, rank), various joins, unions*
+
 **FAO data completeness L2 -> L1 (IPCC dimension) [fao_ipcc_test_1.sql]**
 * The purpose of this model is to test the asumption made in the initial data exploring phase described in the finding number 3 of the section 3.1, that level 2 items (columns `J:K` of the mapping Sheets file) add up to level 1 items for *LULUCF* and *Agriculture* IPCC  categories (columns `H:I` of the mapping Sheets file).
 * There were discrepancies in *LULUCF* category for Nepal and Guinea entries.
