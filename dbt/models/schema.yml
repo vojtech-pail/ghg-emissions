@@ -1,0 +1,52 @@
+
+version: 2
+
+models:
+    - name: dataset_comparison
+      description: "The core analytical model with datasets comparison metrics for country and year combinations."
+      columns:
+        - name: country_code
+          description: "The ISO Alpha 3 code."
+          tests:
+            - not_null
+            - relationships:
+                field: ISO_alpha3_Code
+                to: source('ghg', 'countries')
+        - name: year
+          tests:
+            - not_null
+        - name: cw_value
+          description: "Aggregated value of level 1 items of all sectors."
+        - name: fao_value
+          description: "Aggregated value of level 1 items of all sectors."
+        - name: values_difference
+          description: "Difference between cw_value and fao_value. Negative value implies that values reported in FAOSTAT were lower that those in Climate Watch."
+        - name: relative_difference
+          description: "The values_difference value divided by the fao_value."
+        - name: running_total_difference
+          description: "Sum of values_difference values for year on the current row and all of its preceding years."
+        - name: ma5_values_difference
+          description: "Moving average for 5 values (current row value, 2 preceding and 2 following)."
+        - name: cw_yoy_difference
+          description: "YOY difference of cw_value."
+        - name: fao_yoy_difference
+          description: "YOY difference of fao_value."
+
+    - name: datasets_comparison_overview
+      description: "The core analytical model with datasets comparison metrics aggregated by country. This model is based on the dataset_comparison model."
+      columns:
+        - name: country_code
+          description: "The ISO Alpha 3 code."
+          tests:
+            - not_null
+            - relationships:
+                field: ISO_alpha3_Code
+                to: source('ghg', 'countries')
+        - name: total_difference
+          description: "Sum of values differences between Climate Watch and FAOSTAT datasets aggregated by country."
+        - name: avg_difference
+          description: "Average yearly difference."
+        - name: avg_relative_difference
+          description: "Average yearly relative difference."
+        - name: rank_by_relative_difference
+          description: "Rank of the country as per its avg_relative_difference value (`dense_rank()` used)."

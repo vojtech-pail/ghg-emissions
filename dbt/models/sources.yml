@@ -1,0 +1,26 @@
+version: 2
+
+sources:
+  - name: ghg
+    schema: ghg
+    tables:
+      - name: cw_data
+        identifier: cw_data
+
+      - name: cw_items
+        identifier: cw_sector_dim
+
+      - name: fao_data
+        identifier: fao_data
+
+      - name: fao_items
+        identifier: fao_item_dim
+
+      - name: fao_categories
+        identifier: fao_category_dim
+
+      - name: ipcc_categories
+        identifier: ipcc_category_dim
+
+      - name: countries
+        identifier: country_dim
