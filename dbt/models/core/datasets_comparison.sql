@@ -3,7 +3,7 @@ with totals_comparison as (
     select
         *,
         cw_value - fao_value as values_difference, -- cw difference than reported in FAO (in Mt CO2)
-        round((cw_value - fao_value) / fao_value, 4) as relative_difference -- cw difference than reported in FAO (%)
+        round(SAFE_DIVIDE((cw_value - fao_value), fao_value), 4) as relative_difference -- cw difference than reported in FAO (%)
 
     from
         {{ ref('stg_datasets_comparison_aggregated') }}
