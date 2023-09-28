@@ -75,16 +75,14 @@ There are references to the [mapping Google Sheets file](https://docs.google.com
 
 In order to save the compute resources, the initial testing of the models was done on a small amount of data. The testing dataset consisted of three countries - Canada (`CAN`), Nepal (`NPL`) and Guinea (`GIN`). The period covered was 2016 to 2020.
 
+*SQL techniques used: CTEs, window functions (for calculating running total, moving average, delta values - YOY, rank), various joins, unions*
+
 ### Data quality models
 First set of models were designed to test the quality of the data and some asumptions made in earlier part of the project. The idea behind testing the data quality is to verify, that the values of higher granularity items (I call these *level 2* items in this project) match the items of lower granularity and that the dataset is complete and both levels can be used interchangebly (i.e. some calculations can be based on level 1 items while others on level 2 items). Discovery of any methodological or process errors made by any of the data collectors (FAOSTAT and Climate Watch) is NOT the purpose of this testing. Therefore if some higher granularity items were not included in calculating the lower granularity items by accident, it won't be discovered.
 
 Data from the FAO dataset are possible to view from two different angles. First one is the IPCC point of view, where sum of the detailed level 2 items (columns `J:K` of the mapping Sheets file) should match the related level 1 items. Second one is the FAO point of view, which has different level 1 categories (columns `N:O` of the mapping Sheets file) that are composed of only some of the level 2 items.
 
 Climate Watch dataset has entries that can be linked only to the FAO's IPCC categories (columns `D:E` of the mapping Sheets file), therefore the data quality models covers only one dimension.
-
-*Summarizing findings in one master model.*
-
-*SQL tehniques used: CTEs, window functions (for calculating running total, moving average, delta values - YOY, rank), various joins, unions*
 
 **FAO data completeness L2 -> L1 (IPCC dimension) [fao_ipcc_test_1.sql]**
 * The purpose of this model is to test the asumption made in the initial data exploring phase described in the finding number 3 of the section 3.1, that level 2 items (columns `J:K` of the mapping Sheets file) add up to level 1 items for *LULUCF* and *Agriculture* IPCC  categories (columns `H:I` of the mapping Sheets file).
@@ -108,6 +106,18 @@ Climate Watch dataset has entries that can be linked only to the FAO's IPCC cate
 
 **Climate Watch data completeness L1 -> L0 (IPCC dimension) [cw_ipcc_test_2.sql]**
 * Similarly as with the *fao_ipcc_test_2* model, this one compares the sum of level 1 items' values with the level 0 totals emissions for country and year. 
+
+Results of all the data quality tests were combined in one master table. Only one of the tests was showing errors.
+
+| ![Results of all data quality tests](/assets/data_quality_master_result.png "Table that includes results of all data quality tests.") |
+| --- |
+| *Results of all data quality tests.* |
+
+However, the errors were pretty insignificant and I didn't catch any calculation error (I tested one random example and the numbers were correct).
+
+| ![Errors of fao_fao_test_1 model.](/assets/fao_fao_test_1_result.png "Errors of fao_fao_test_1 model.") |
+| --- |
+| *Errors of fao_fao_test_1 model.* |
 
 ### Core models
 Models that aim to compare the FAO data and Climate Watch data.
