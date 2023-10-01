@@ -1,5 +1,5 @@
 # Greenhouse gas emissions data comparison
-This is an end-to-end data engineering and data analytical project which aims to provide comparison of two different sources with greenhouse gas emissions data and visualize the greenhouse gas contributions of different sectors and agrifood systems in particular.
+This is an end-to-end data engineering and analytical project which aims to provide comparison of two different sources with greenhouse gas emissions data and visualize the greenhouse gas contributions of different sectors and agrifood systems in particular.
 
 *DISCLAIMER: In order to focus on the data engineering and analytical tasks, I disregard some technical details about the datasets and make some intentional assumptions about them that might not be correct. Please use the results with caution.*
 
@@ -10,6 +10,30 @@ The whole project was built using Google Cloud Platform services and dbt.
 | --- |
 | *Schema of services' integration* |
 
+***Data sources***
+* *Climate Watch* - data accessed using API call with optional parameters (from the [https://www.climatewatchdata.org/api/v1/data/historical_emissions](https://www.climatewatchdata.org/api/v1/data/historical_emissions) url address)
+* *FAOSTAT* - data had to be downloaded manually (from the [https://www.fao.org/faostat/en/#data/GT](https://www.fao.org/faostat/en/#data/GT) url address)
+
+***Data ingestion***
+* Data were ingested using Google Cloud Function ETL scripts written in Python.
+* Transformed data was stored in Google BigQuery data warehouse in a dataset called `ghg`.
+* The scripts allow for incremental data refresh - if the source data (either requeted via API call or downloaded from the FAOSTAT website) is already in target tables, it gets updated. No data is being deleted in this process.
+* The transformation scripts were slightly different for each data source.
+  * *Climate Watch data*
+    * Data fetched in the script and pushed to `cw_data_stg` table.
+    * Afterwards data was merged with target table `cw_data`.
+    * Script is in the [cw-data-load](/scripts/cw-data-load) folder.
+  * *FAOSTAT data*
+    * The data was uploaded to a Google Cloud Storage bucket that triggered the ETL script.
+    * The ETL script transformed and enriched the data.
+    * Finally, the data was uploaded to `fao_data_stg` table and merged with `fao_data` table.
+    * Script is in the [fao-data-load](/scripts/fao-data-load) folder.
+
+* Additional dimension tables were added to the `ghg` dataset
+
+| ![Tables of the ghg dataset](/assets/bigquery_ghg.png "Tables of the ghg dataset") |
+| --- |
+| *Tables of the ghg dataset* |
 
 ## Lessons learned
 The process described in the following text is not complete set of actions I had to perform in order to get to the finish line.
@@ -40,7 +64,7 @@ First I had to understand what is the structure of the data and how the comparis
 
 The data about emissions related to agriculture and food systems are maintained by the Food and Agriculture Organization of the United Nations and can be downloaded from their [website](https://www.fao.org/faostat/en/#data/GT) (further abbreviated as FAO). The FAO dataset contains not only agrifood systems data but the emissions data of other sectors that some countries have to report to the IPCC as well.
 
-The second organisation that gathers data about greenhouse gas emissions is Climate Watch. In my simplified scenario, this is the organisation with more precise numbers about emissions. The data can be downloaded either directly from their [website](https://www.climatewatchdata.org/data-explorer/) or accessed via API.
+The second organisation that gathers data about greenhouse gas emissions is Climate Watch. In my simplified scenario, this is the organisation with more precise numbers about emissions. The data can be downloaded either directly from their [website](https://www.climatewatchdata.org/data-explorer/) or accessed via [API](https://www.climatewatchdata.org/api/v1/data/historical_emissions).
 
 In order to get a better understanding of the data and how both datasets fit together, I downloaded sample data for Canada's 2020 emissions from both portals and put them together in a [Google Sheets file](https://docs.google.com/spreadsheets/d/1ZcKa8KzINZwqKoVcgZBC2XNQTrSQdNLt5Au4ie9xVlA/edit#gid=0). The results of my findings are in the following two subsections.
 
