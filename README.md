@@ -26,12 +26,30 @@ The whole project was built using Google Cloud Platform services and dbt.
     * The data was uploaded to a Google Cloud Storage bucket that triggered the ETL script.
     * The ETL script transformed and enriched the data.
     * Finally, the data was uploaded to `fao_data_stg` table and merged with `fao_data` table.
-
 * Additional dimension tables were added to the `ghg` dataset
 
 | ![Tables of the ghg dataset](/assets/bigquery_ghg.png "Tables of the ghg dataset") |
 | --- |
 | *Tables of the ghg dataset* |
+
+***Data modeling***
+* Data models were created using dbt (developed in dbt cloud).
+* Intermediate models were stored in [[stg](/dbt/models/stg)] subfolder and deployed in `analytics_stq` dataset of the BigQuery project
+* There are models focusing on evaluating data quality - stored in [[data_quality](/dbt/models/data_quality)] subfolder and deployed in `analytics_data_quality` dataset.
+* The main analytical models are in [[core](/dbt/models/core)] subfolder and deployed in `analytics` dataset.
+
+| ![Tables and views of the analytical models](/assets/bigquery_analytics.png "Tables and views of the analytical models") |
+| --- |
+| *Tables and views of the analytical models* |
+
+***Analysis and visualizations***
+* The ooutput of the data modeling step were analyzed and visualized in Google Looker Studio.
+* The full datasets included greenhuse gas emissions data from 1990 until 2020 (the development dataset was just a fraction of that - further described in the following text). 
+* The full Google Looker Studio report can be found [here](https://lookerstudio.google.com/reporting/d80d2d2d-9fb4-44df-8e47-020009182925)
+
+| ![Datasets comparison overview](/assets/looker_analysis.png "Datasets comparison overview") |
+| --- |
+| *Datasets comparison overview* |
 
 ## Lessons learned
 The process described in the following text is not complete set of actions I had to perform in order to get to the finish line.
