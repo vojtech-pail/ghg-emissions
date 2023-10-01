@@ -1,7 +1,15 @@
 # Greenhouse gas emissions data comparison
-This is an end-to-end data engineering and data analytical project which aims to provide comparison of two different data sources about greenhouse gas emissions and visualize the greenhouse gas contributions of different sectors and agrifood systems in particular.
+This is an end-to-end data engineering and data analytical project which aims to provide comparison of two different sources with greenhouse gas emissions data and visualize the greenhouse gas contributions of different sectors and agrifood systems in particular.
 
 *DISCLAIMER: In order to focus on the data engineering and analytical tasks, I disregard some technical details about the datasets and make some intentional assumptions about them that might not be correct. Please use the results with caution.*
+
+## Overview
+The whole project was built using Google Cloud Platform services and dbt.
+
+| ![Schema of services' integration](/assets/services_schema.png "Schema of services' integration") |
+| --- |
+| *Schema of services' integration* |
+
 
 ## Lessons learned
 The process described in the following text is not complete set of actions I had to perform in order to get to the finish line.
