@@ -132,15 +132,15 @@ Climate Watch dataset has entries that can be linked only to the FAO's IPCC cate
 
 Results of all the data quality tests were combined in one master table. Only one of the tests was showing errors.
 
-| ![Results of all data quality tests](/assets/data_quality_master_result.png "Table that includes results of all data quality tests.") |
+| ![Results of all data quality tests](/assets/data_quality_master_result.png "Table that includes results of all data quality tests") |
 | --- |
-| *Results of all data quality tests.* |
+| *Results of all data quality tests* |
 
 However, the errors were pretty insignificant and I didn't catch any calculation error (I tested one random example and the numbers were correct).
 
-| ![Errors of fao_fao_test_1 model.](/assets/fao_fao_test_1_result.png "Errors of fao_fao_test_1 model.") |
+| ![Errors of fao_fao_test_1 model](/assets/fao_fao_test_1_result.png "Errors of fao_fao_test_1 model") |
 | --- |
-| *Errors of fao_fao_test_1 model.* |
+| *Errors of fao_fao_test_1 model* |
 
 ***Core models***
 
@@ -156,5 +156,21 @@ The main data model `datasets_comparison` (per country and year basis) has sever
 * *cw_yoy_difference* - YOY difference of cw_value.
 * *fao_yoy_difference* - YOY difference of fao_value.
 
-### 6 Visualizing the findings
+### 6 Analysis and visualization
+The data models outputs were finally used as a data source for Google Looker Studio report.  
 
+***Datasets comparison***
+
+One of the project's goals was to compare the datasets. For that I have selected relative difference as a comparison metric. From the metric and the line chart it is clear, that the emissions reported in Climate Watch were in general higher than in FAOSTAT. Therefore my hypothesis (about contries not reporting the emissions corectly) was not confirmed. However, there were some countries that had positive relative difference (top 5 are displayed at the lower half of the page).
+
+| ![Datasets comparison page](/assets/looker_datasets_comparison_full.png "Datasets comparison page") |
+| --- |
+| *Datasets comparison page* |
+
+***Agrifood systems emissions***
+
+The second goal was to display the share of emissions related to agrifood systems. 
+
+| ![Agrifood systems emissions and its subcategories](/assets/looker_agrifood_systems.png "Agrifood systems emissions and its subcategories") |
+| --- |
+| *Agrifood systems emissions and its subcategories* |
