@@ -17,17 +17,15 @@ The whole project was built using Google Cloud Platform services and dbt.
 ***Data ingestion***
 * Data were ingested using Google Cloud Function ETL scripts written in Python.
 * Transformed data was stored in Google BigQuery data warehouse in a dataset called `ghg`.
-* The scripts allow for incremental data refresh - if the source data (either requeted via API call or downloaded from the FAOSTAT website) is already in target tables, it gets updated. No data is being deleted in this process.
+* The scripts allow for incremental data refresh - if the source data (either requeted via API call or downloaded from the FAOSTAT website) was already in target tables, it got updated. No data is deleted in this process.
 * The transformation scripts were slightly different for each data source.
-  * *Climate Watch data*
+  * *Climate Watch* [[cw-data-load](/scripts/cw-data-load)]
     * Data fetched in the script and pushed to `cw_data_stg` table.
     * Afterwards data was merged with target table `cw_data`.
-    * Script is in the [cw-data-load](/scripts/cw-data-load) folder.
-  * *FAOSTAT data*
+  * *FAOSTAT* [[fao-data-load](/scripts/fao-data-load)]
     * The data was uploaded to a Google Cloud Storage bucket that triggered the ETL script.
     * The ETL script transformed and enriched the data.
     * Finally, the data was uploaded to `fao_data_stg` table and merged with `fao_data` table.
-    * Script is in the [fao-data-load](/scripts/fao-data-load) folder.
 
 * Additional dimension tables were added to the `ghg` dataset
 
