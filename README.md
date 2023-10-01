@@ -34,6 +34,7 @@ The whole project was built using Google Cloud Platform services and dbt.
 
 ***Data modeling***
 * Data models were created using dbt (developed in dbt cloud).
+* SQL techniques used: CTEs, window functions (for calculating running total, moving average, delta values - YOY, rank), various joins, unions.
 * Intermediate models were stored in [[stg](/dbt/models/stg)] subfolder and deployed in `analytics_stg` dataset of the BigQuery project.
 * There are models focusing on evaluating data quality - stored in [[data_quality](/dbt/models/data_quality)] subfolder and deployed in `analytics_data_quality` dataset.
 * The main analytical models are in [[core](/dbt/models/core)] subfolder and deployed in `analytics` dataset.
@@ -43,7 +44,7 @@ The whole project was built using Google Cloud Platform services and dbt.
 | *Tables and views of the analytical models* |
 
 ***Analysis and visualizations***
-* The ooutput of the data modeling step were analyzed and visualized in Google Looker Studio.
+* The outputs of the data modeling step were analyzed and visualized in Google Looker Studio.
 * The full datasets included greenhouse gas emissions data from 1990 until 2020 (the development dataset was just a fraction of that - further described in the following text). 
 * The full Google Looker Studio report can be found [here](https://lookerstudio.google.com/reporting/d80d2d2d-9fb4-44df-8e47-020009182925)
 
@@ -83,6 +84,7 @@ In order to get a better understanding of the data and how both datasets fit tog
 In both cases, I was interested only in downloading data for CO<sub>2</sub> equivalents of emitted gases.
 
 ***FAO data***
+
 The data in raw format was not very user friendly. There was no indication about what are the aggregated numbers and what are individual categories. Following along with a table that is attached to the [methodological note of FAOSTAT's Emissions Totals Domain](https://fenixservices.fao.org/faostat/static/documents/GT/GT_e.pdf) I was able to map individual lower level categories to higher level IPCC categories. I have therefore introduced the grading system and assigned appropriate level to each item in a dimension table I have made from selecting distinct values of *Item* and *Item Code*.
 
 | ![Mapping of FAO categories to IPCC sectors](/assets/fao_categories_mapping_to_ipcc.png "Mapping of FAO categories to IPCC sectors") |
@@ -95,6 +97,7 @@ Key findings:
 3. Level 2 items summed up only for Agriculture and LULUCF IPCC categories. In order to allow the drill-down feature while still displaying the totals, I had to add three new items (*Energy emissions not related to Agriculture*, *IPPU emissions not related to Agriculture*, *Waste emissions not related to Agriculture*) that were to be calculated in the following ETL process.
 
 ***Climate Watch data***
+
 The Climate Watch data contained only the values for similar categories as IPCC categories in FAO dataset and more detailed values for Energy sector. Therefore it was ready to be used without any additional changes.
 
 ### 4 Ingesting data
@@ -105,23 +108,22 @@ ETL Python scripts for ingesting both FAO and Climate Watch datasets were deploy
 | *Overview of the Google Functions for ETL process* |
 
 ***FAO data***
+
 Unfortunately, there is no API to access the data automatically and therefore it is necessary to download the data manually. But the rest of the ETL process was automated. I have created a Google Cloud Function that is triggered by file uploaded to a specific Google Cloud Storage bucket.
 
-*Key sections of the ETL script here*
-
 ***Climate Watch data***
+
 Google Cloud Function with parameters that are used in API calls to Climate Watch portal (`start_year`, `end_year`, `regions`). The function transforms the data and uploads them to the Google BigQuery dataset.
 
 ### 5 Creating models
-Data models created using dbt cloud.
+Data models were created using dbt cloud.
 
 There are references to the [mapping Google Sheets file](https://docs.google.com/spreadsheets/d/1ZcKa8KzINZwqKoVcgZBC2XNQTrSQdNLt5Au4ie9xVlA/edit#gid=0) (items mapping sheet) in this section.
 
 In order to save the compute resources, the initial testing of the models was done on a small amount of data. The testing dataset consisted of three countries - Canada (`CAN`), Nepal (`NPL`) and Guinea (`GIN`). The period covered was 2016 to 2020.
 
-*SQL techniques used: CTEs, window functions (for calculating running total, moving average, delta values - YOY, rank), various joins, unions*
-
 ***Data quality models***
+
 First set of models were designed to test the quality of the data and some asumptions made in earlier part of the project. The idea behind testing the data quality is to verify, that the values of higher granularity items (I call these *level 2* items in this project) match the items of lower granularity and that the dataset is complete and both levels can be used interchangebly (i.e. some calculations can be based on level 1 items while others on level 2 items). Discovery of any methodological or process errors made by any of the data collectors (FAOSTAT and Climate Watch) is NOT the purpose of this testing. Therefore if some higher granularity items were not included in calculating the lower granularity items by accident, it won't be discovered.
 
 Data from the FAO dataset are possible to view from two different angles. First one is the IPCC point of view, where sum of the detailed level 2 items (columns `J:K` of the mapping Sheets file) should match the related level 1 items. Second one is the FAO point of view, which has different level 1 categories (columns `N:O` of the mapping Sheets file) that are composed of only some of the level 2 items.
@@ -141,6 +143,18 @@ However, the errors were pretty insignificant and I didn't catch any calculation
 | *Errors of fao_fao_test_1 model.* |
 
 ***Core models***
-Models that aim to compare the FAO data and Climate Watch data.
+
+The key analytical data models that aim to compare the FAO data and Climate Watch data. They were built on top of raw data in the `ghg` BigQuery dataset as well as intermediate models materialized as tables and stored in `analytics_stg` dataset.
+
+The main data model `datasets_comparison` (per country and year basis) has several calculated columns:
+* *cw_value* - aggregated value of level 1 items of all IPCC sectors from the Climate Watch dataset.
+* *fao_value* - aggregated value of level 1 items of all IPCC sectors from the FAO dataset.
+* *values_difference* - difference between `cw_value` and `fao_value`. Negative value implies that values reported in FAOSTAT were lower than those in Climate Watch.
+* *relative_difference* - the `values_difference` value divided by the `fao_value`.
+* *running_total_difference* - sum of `values_difference` values for the year on the current row and all of its preceding years.
+* *ma5_values_difference* - moving average for 5 values (current row value, 2 preceding and 2 following).
+* *cw_yoy_difference* - YOY difference of cw_value.
+* *fao_yoy_difference* - YOY difference of fao_value.
 
 ### 6 Visualizing the findings
+
